@@ -58,10 +58,14 @@ public class ProductDao {
     String sql = "select * from Product where name like concat('%', ?, '%')";
     PreparedStatement ps = connection.prepareStatement(sql);
     ps.setString(1, name);
+    return doFindProducts(ps);
+  }
 
+  private List<Product> doFindProducts(PreparedStatement ps) throws SQLException {
     ResultSet rs = ps.executeQuery();
 
     List<Product> products = new ArrayList<>();
+
     while (rs.next()) {
       Product product =
           new Product(
