@@ -61,6 +61,13 @@ public class ProductDao {
     return doFindProducts(ps);
   }
 
+  public List<Product> findProductsByCategory(String category) throws SQLException {
+    String sql = "select * from Product where category like concat('%', ?, '%')";
+    PreparedStatement ps = connection.prepareStatement(sql);
+    ps.setString(1, category);
+    return doFindProducts(ps);
+  }
+
   private List<Product> doFindProducts(PreparedStatement ps) throws SQLException {
     ResultSet rs = ps.executeQuery();
 

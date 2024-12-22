@@ -9,7 +9,7 @@ import java.util.List;
 public class App {
   public static void main(String[] args) throws SQLException {
     ProductDao productDao = new ProductDao();
-    List<Product> products = productDao.findProductsByName("Product");
+    List<Product> products = productDao.findProductsByCategory("CATEGORY 1");
 
     products.forEach(product -> System.out.println(product));
   }
