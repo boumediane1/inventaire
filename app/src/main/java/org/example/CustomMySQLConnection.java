@@ -7,13 +7,17 @@ import java.sql.SQLException;
 public class CustomMySQLConnection {
   private static Connection connection;
 
-  public static Connection getConnection() throws SQLException {
+  public static Connection getConnection() {
     if (connection == null) {
       String url = "jdbc:mysql://localhost:3306/inventaire";
       String username = "root";
       String password = "";
 
-      connection = DriverManager.getConnection(url, username, password);
+      try {
+        connection = DriverManager.getConnection(url, username, password);
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
     }
 
     return connection;
