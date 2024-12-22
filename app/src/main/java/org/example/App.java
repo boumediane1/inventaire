@@ -3,12 +3,12 @@
  */
 package org.example;
 
-public class App {
-  public String getGreeting() {
-    return "Hello World!";
-  }
+import java.sql.SQLException;
 
-  public static void main(String[] args) {
-    System.out.println(new App().getGreeting());
+public class App {
+  public static void main(String[] args) throws SQLException {
+    Product product = new Product("Product 1", "Category 1", 10, 1000);
+    ProductDao productDao = new ProductDao();
+    productDao.addProduct(product);
   }
 }
