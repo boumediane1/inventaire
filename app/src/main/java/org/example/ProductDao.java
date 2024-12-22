@@ -2,7 +2,10 @@ package org.example;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDao {
   private Connection connection;
@@ -49,5 +52,27 @@ public class ProductDao {
     ps.executeUpdate();
 
     connection.close();
+  }
+
+  public List<Product> findProductsByName(String name) throws SQLException {
+    String sql = "select * from Product where name like concat('%', ?, '%')";
+    PreparedStatement ps = connection.prepareStatement(sql);
+    ps.setString(1, name);
+
+    ResultSet rs = ps.executeQuery();
+
+    List<Product> products = new ArrayList<>();
+    while (rs.next()) {
+      Product product =
+          new Product(
+              rs.getString("name"),
+              rs.getString("category"),
+              rs.getDouble("price"),
+              rs.getInt("quantity"));
+
+      products.add(product);
+    }
+
+    return products;
   }
 }

@@ -4,10 +4,13 @@
 package org.example;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class App {
   public static void main(String[] args) throws SQLException {
     ProductDao productDao = new ProductDao();
-    productDao.deleteProduct(1);
+    List<Product> products = productDao.findProductsByName("Product");
+
+    products.forEach(product -> System.out.println(product));
   }
 }
