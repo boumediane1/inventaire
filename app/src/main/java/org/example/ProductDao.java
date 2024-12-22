@@ -39,4 +39,15 @@ public class ProductDao {
 
     connection.close();
   }
+
+  public void deleteProduct(int id) throws SQLException {
+    String sql = "delete from Product where id = ?";
+    PreparedStatement ps = connection.prepareStatement(sql);
+
+    ps.setInt(1, id);
+
+    ps.executeUpdate();
+
+    connection.close();
+  }
 }
