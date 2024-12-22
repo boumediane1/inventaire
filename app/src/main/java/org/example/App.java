@@ -7,8 +7,8 @@ import java.sql.SQLException;
 
 public class App {
   public static void main(String[] args) throws SQLException {
-    Product product = new Product("Product 1", "Category 1", 10, 1000);
+    Product product = new Product(1, "Product 1 updated", "Category 1 updated", 20, 2000);
     ProductDao productDao = new ProductDao();
-    productDao.addProduct(product);
+    productDao.updateProduct(product);
   }
 }
