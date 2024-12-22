@@ -68,6 +68,14 @@ public class ProductDao {
     return doFindProducts(ps);
   }
 
+  public List<Product> findProductsByQuantityRange(int min, int max) throws SQLException {
+    String sql = "select * from Product where quantity between ? and ?";
+    PreparedStatement ps = connection.prepareStatement(sql);
+    ps.setInt(1, min);
+    ps.setInt(2, max);
+    return doFindProducts(ps);
+  }
+
   private List<Product> doFindProducts(PreparedStatement ps) throws SQLException {
     ResultSet rs = ps.executeQuery();
 
