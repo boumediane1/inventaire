@@ -3,14 +3,8 @@
  */
 package org.example;
 
-import java.sql.SQLException;
-import java.util.List;
 
 public class App {
-  public static void main(String[] args) throws SQLException {
-    ProductDao productDao = new ProductDao();
-    List<Product> products = productDao.findProductsByQuantityRange(10, 20);
-
-    products.forEach(product -> System.out.println(product));
+  public static void main(String[] args) {
   }
 }

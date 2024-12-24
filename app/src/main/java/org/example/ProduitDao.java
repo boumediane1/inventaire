@@ -8,35 +8,35 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ProductDao {
+public class ProduitDao {
   private Connection connection;
 
-  public ProductDao() {
+  public ProduitDao() {
     connection = CustomMySQLConnection.getConnection();
   }
 
-  public void addProduct(Product product) {
+  public void ajouterProduit(Produit product) {
     String sql = "insert into Product (name, category, price, quantity) values (?, ?, ?, ?)";
 
     try (PreparedStatement ps = connection.prepareStatement(sql)) {
-      ps.setString(1, product.getName());
-      ps.setString(2, product.getCategory());
-      ps.setDouble(3, product.getPrice());
-      ps.setInt(4, product.getQuantity());
+      ps.setString(1, product.getNom());
+      ps.setString(2, product.getCategorie());
+      ps.setDouble(3, product.getPrix());
+      ps.setInt(4, product.getQuantite());
       ps.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
     }
   }
 
-  public void updateProduct(Product product) {
+  public void modifierProduit(Produit product) {
     String sql = "update Product set name = ?, category = ?, price = ?, quantity = ? where id = ?";
 
     try (PreparedStatement ps = connection.prepareStatement(sql)) {
-      ps.setString(1, product.getName());
-      ps.setString(2, product.getCategory());
-      ps.setDouble(3, product.getPrice());
-      ps.setInt(4, product.getQuantity());
+      ps.setString(1, product.getNom());
+      ps.setString(2, product.getCategorie());
+      ps.setDouble(3, product.getPrix());
+      ps.setInt(4, product.getQuantite());
       ps.setInt(5, product.getId());
       ps.executeUpdate();
     } catch (SQLException e) {
@@ -44,7 +44,7 @@ public class ProductDao {
     }
   }
 
-  public void deleteProduct(int id) {
+  public void supprimerProduit(int id) {
     String sql = "delete from Product where id = ?";
 
     try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -55,12 +55,12 @@ public class ProductDao {
     }
   }
 
-  public List<Product> findProductsByName(String name) {
+  public List<Produit> rechercherProduitsParNom(String name) {
     String sql = "select * from Product where name like concat('%', ?, '%')";
 
     try (PreparedStatement ps = connection.prepareStatement(sql)) {
       ps.setString(1, name);
-      return doFindProducts(ps);
+      return doRechercherProduits(ps);
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -68,12 +68,12 @@ public class ProductDao {
     return Collections.emptyList();
   }
 
-  public List<Product> findProductsByCategory(String category) {
+  public List<Produit> rechercherProduitsParCategorie(String category) {
     String sql = "select * from Product where category like concat('%', ?, '%')";
 
     try (PreparedStatement ps = connection.prepareStatement(sql)) {
       ps.setString(1, category);
-      return doFindProducts(ps);
+      return doRechercherProduits(ps);
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -81,13 +81,13 @@ public class ProductDao {
     return Collections.emptyList();
   }
 
-  public List<Product> findProductsByQuantityRange(int min, int max) {
+  public List<Produit> rechercherProduitParQuantite(int min, int max) {
     String sql = "select * from Product where quantity between ? and ?";
 
     try (PreparedStatement ps = connection.prepareStatement(sql)) {
       ps.setInt(1, min);
       ps.setInt(2, max);
-      return doFindProducts(ps);
+      return doRechercherProduits(ps);
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -95,13 +95,13 @@ public class ProductDao {
     return Collections.emptyList();
   }
 
-  private List<Product> doFindProducts(PreparedStatement ps) {
+  private List<Produit> doRechercherProduits(PreparedStatement ps) {
     try (ResultSet rs = ps.executeQuery()) {
-      List<Product> products = new ArrayList<>();
+      List<Produit> products = new ArrayList<>();
 
       while (rs.next()) {
-        Product product =
-            new Product(
+        Produit product =
+            new Produit(
                 rs.getString("name"),
                 rs.getString("category"),
                 rs.getDouble("price"),
