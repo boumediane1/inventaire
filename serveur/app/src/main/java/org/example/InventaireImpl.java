@@ -1,12 +1,13 @@
 package org.example;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-public class InventaireImpl implements Inventaire {
+public class InventaireImpl extends UnicastRemoteObject implements Inventaire {
   private ProduitDao productDao;
 
-  public InventaireImpl() {
+  public InventaireImpl() throws RemoteException {
     this.productDao = new ProduitDao();
   }
 
