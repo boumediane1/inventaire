@@ -29,7 +29,7 @@ public class App extends Application {
     ObservableList<ProduitVM> produits = (Util.from(this.inventaire.listerProduits()));
     TableView<ProduitVM> produitsVue = new ProduitsVue(inventaire, produits);
 
-    VBox formulaireVue = new FormulaireVue();
+    VBox formulaireVue = new FormulaireVue(inventaire, produits);
 
     HBox hBox = new HBox();
     hBox.getChildren().addAll(produitsVue, formulaireVue);

@@ -1,5 +1,7 @@
 package org.example;
 
+import java.rmi.RemoteException;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,7 +15,7 @@ public class FormulaireVue extends VBox {
   private TextField tfQuantite;
   private Button btnAjouterProduit;
 
-  public FormulaireVue() {
+  public FormulaireVue(Inventaire inventaire, ObservableList<ProduitVM> produits) {
     tfNom = new TextField();
     tfCategorie = new TextField();
     tfPrix = new TextField();
@@ -36,7 +38,22 @@ public class FormulaireVue extends VBox {
             tfQuantite,
             btnAjouterProduit);
 
-    this.btnAjouterProduit.setOnAction(event -> {});
+    this.btnAjouterProduit.setOnAction(
+        event -> {
+          try {
+            Produit produit =
+                new Produit(
+                    tfNom.getText(),
+                    tfCategorie.getText(),
+                    Double.parseDouble(tfPrix.getText()),
+                    Integer.parseInt(tfQuantite.getText()));
+
+            inventaire.addProduct(produit);
+            produits.add(Util.from(produit));
+          } catch (RemoteException e) {
+            e.printStackTrace();
+          }
+        });
   }
 
   public TextField getTfNom() {
