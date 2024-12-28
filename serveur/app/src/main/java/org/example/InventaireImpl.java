@@ -27,7 +27,7 @@ public class InventaireImpl extends UnicastRemoteObject implements Inventaire {
   }
 
   @Override
-  public List<Produit> listerProduits() {
+  public List<Produit> listerProduits() throws RemoteException {
     return productDao.listerProduits();
   }
 

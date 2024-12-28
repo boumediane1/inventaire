@@ -1,15 +1,15 @@
 package org.example;
 
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
+import java.util.Collections;
 import java.util.List;
-
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -18,28 +18,38 @@ public class App extends Application {
   }
 
   @Override
-  public void start(Stage primaryStage) throws Exception {
-    Registry registry = LocateRegistry.getRegistry();
-    Inventaire inventaire = (Inventaire) registry.lookup("inventaire");;
+  public void start(Stage primaryStage) {
+    HBox rechercherVue = new RechercherVue();
 
+    TableView<ProduitVM> produitsVue =
+        new ProduitsVue(FXCollections.observableList(Collections.emptyList()));
 
-    ObservableList<ProduitView> produits = from(inventaire.listerProduits());
+    VBox formulaireVue = new FormulaireVue();
 
-    TableView<ProduitView> tableView = new ProduitTableView(produits);
-    ProduitForm vBox = new ProduitForm();
+    HBox hBox = new HBox();
+    hBox.getChildren().addAll(produitsVue, formulaireVue);
 
-    GridPane pane = new ProductPane();
-    pane.add(tableView, 0, 0);
-    pane.add(vBox, 1, 0);
+    VBox vBox = new VBox();
+    vBox.getChildren().addAll(rechercherVue, hBox);
+    VBox.setVgrow(hBox, Priority.ALWAYS);
 
-    Scene scene = new Scene(pane, 800, 600);
-    produits.add(new ProduitView("produit 2", "categorie 2", 0, 0));
+    // Create the scene and show the stage
+    Scene scene = new Scene(vBox, 1000, 600);
     primaryStage.setScene(scene);
+    primaryStage.setTitle("JavaFX Layout Example");
     primaryStage.show();
   }
 
-  ObservableList<ProduitView> from(List<Produit> produtis) {
-    List<ProduitView> list = produtis.stream().map(p -> new ProduitView(p.getNom(), p.getCategorie(), p.getPrix(), p.getQuantite())).toList();
+  public ObservableList<ProduitVM> from(List<Produit> produtis) {
+    List<ProduitVM> list =
+        produtis.stream()
+            .map(p -> new ProduitVM(p.getNom(), p.getCategorie(), p.getPrix(), p.getQuantite()))
+            .toList();
     return FXCollections.observableArrayList(list);
+  }
+
+  public ProduitVM from(Produit produit) {
+    return new ProduitVM(
+        produit.getNom(), produit.getCategorie(), produit.getPrix(), produit.getQuantite());
   }
 }

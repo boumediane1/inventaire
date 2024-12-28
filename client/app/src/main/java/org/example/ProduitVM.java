@@ -7,13 +7,13 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class ProduitView {
+public class ProduitVM {
   private StringProperty nom;
   private StringProperty categorie;
   private DoubleProperty prix;
   private IntegerProperty quantite;
 
-  public ProduitView(String nom, String categorie, double prix, int quantite) {
+  public ProduitVM(String nom, String categorie, double prix, int quantite) {
     this.nom = new SimpleStringProperty(this, "nom", nom);
     this.categorie = new SimpleStringProperty(this, "categorie", categorie);
     this.prix = new SimpleDoubleProperty(this, "prix", prix);
