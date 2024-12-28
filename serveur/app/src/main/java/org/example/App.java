@@ -11,6 +11,6 @@ public class App {
   public static void main(String[] args) throws RemoteException {
     Inventaire inventaire = new InventaireImpl();
     Registry registry = LocateRegistry.getRegistry();
-    registry.rebind("Server", inventaire);
+    registry.rebind("inventaire", inventaire);
   }
 }

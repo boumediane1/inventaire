@@ -55,6 +55,18 @@ public class ProduitDao {
     }
   }
 
+  public List<Produit> listerProduits() {
+    String sql = "select * from Product";
+
+    try (PreparedStatement ps = connection.prepareStatement(sql)) {
+      return doRechercherProduits(ps);
+    } catch(SQLException e) {
+      e.printStackTrace();
+    }
+
+    return Collections.emptyList();
+  }
+
   public List<Produit> rechercherProduitsParNom(String name) {
     String sql = "select * from Product where name like concat('%', ?, '%')";
 
