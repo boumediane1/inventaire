@@ -3,7 +3,6 @@
  */
 package org.example;
 
-import java.util.ArrayList;
 import java.util.List;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -20,29 +19,33 @@ public class App extends Application {
 
   @Override
   public void start(Stage primaryStage) throws Exception {
-    ObservableList<Produit> produits = FXCollections.observableArrayList(new Produit("produit 1", "categorie 1", 0, 0));
+    ObservableList<ProduitView> produits =
+        FXCollections.observableArrayList(new ProduitView("produit 1", "categorie 1", 0, 0));
 
     Scene scene = new Scene(initTableView(produits), 800, 600);
-    produits.add(new Produit("produit 2", "categorie 2", 0, 0));
+    produits.add(new ProduitView("produit 2", "categorie 2", 0, 0));
     primaryStage.setScene(scene);
     primaryStage.show();
   }
 
-  public TableView<Produit> initTableView(ObservableList<Produit> produits) {
-    TableView<Produit> tableView = new TableView<>(produits);
+  public TableView<ProduitView> initTableView(ObservableList<ProduitView> produits) {
+    TableView<ProduitView> tableView = new TableView<>(produits);
 
-    TableColumn<Produit, String> nomCol = new TableColumn<>("Nom");
+    TableColumn<ProduitView, String> nomCol = new TableColumn<>("Nom");
     nomCol.setCellValueFactory(p -> p.getValue().getNom());
+    nomCol.prefWidthProperty().bind(tableView.widthProperty().multiply(0.25));
 
-    TableColumn<Produit, String> categorieCol = new TableColumn<>("Catégorie");
+    TableColumn<ProduitView, String> categorieCol = new TableColumn<>("Catégorie");
     categorieCol.setCellValueFactory(p -> p.getValue().getCategorie());
+    categorieCol.prefWidthProperty().bind(tableView.widthProperty().multiply(0.25));
 
-    TableColumn<Produit, Number> prixCol = new TableColumn<>("Prix");
+    TableColumn<ProduitView, Number> prixCol = new TableColumn<>("Prix");
     prixCol.setCellValueFactory(p -> p.getValue().getPrix());
+    prixCol.prefWidthProperty().bind(tableView.widthProperty().multiply(0.25));
 
-    TableColumn<Produit, Number> quantiteCol = new TableColumn<>("Quantité");
+    TableColumn<ProduitView, Number> quantiteCol = new TableColumn<>("Quantité");
     quantiteCol.setCellValueFactory(p -> p.getValue().getQuantite());
-
+    quantiteCol.prefWidthProperty().bind(tableView.widthProperty().multiply(0.25));
 
     tableView.getColumns().addAll(List.of(nomCol, categorieCol, prixCol, quantiteCol));
 

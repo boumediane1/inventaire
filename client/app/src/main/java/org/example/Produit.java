@@ -1,54 +1,78 @@
 package org.example;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import java.io.Serializable;
 
-public class Produit {
-  private StringProperty nom;
-  private StringProperty categorie;
-  private DoubleProperty prix;
-  private IntegerProperty quantite;
+public class Produit implements Serializable {
+  private int id;
+  private String nom;
+  private String categorie;
+  private double prix;
+  private int quantite;
 
-  public Produit(String nom, String categorie, double prix, int quantite) {
-    this.nom = new SimpleStringProperty(this, "nom", nom);
-    this.categorie = new SimpleStringProperty(this, "categorie", categorie);
-    this.prix = new SimpleDoubleProperty(this, "prix", prix);
-    this.quantite = new SimpleIntegerProperty(this, "quantite", quantite);
+  public Produit(int id, String nom, String categorie, double prix, int quantite) {
+    this(nom, categorie, prix, quantite);
+    this.id = id;
   }
 
-  public StringProperty getNom() {
+  public Produit(String nom, String categorie, double prix, int quantite) {
+    this.nom = nom;
+    this.categorie = categorie;
+    this.prix = prix;
+    this.quantite = quantite;
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public String getNom() {
     return nom;
   }
 
-  public void setNom(StringProperty nom) {
-    this.nom = nom;
+  public void setNom(String name) {
+    this.nom = name;
   }
 
-  public StringProperty getCategorie() {
+  public String getCategorie() {
     return categorie;
   }
 
-  public void setCategorie(StringProperty categorie) {
-    this.categorie = categorie;
+  public void setCategorie(String category) {
+    this.categorie = category;
   }
 
-  public DoubleProperty getPrix() {
+  public double getPrix() {
     return prix;
   }
 
-  public void setPrix(DoubleProperty prix) {
-    this.prix = prix;
+  public void setPrix(double price) {
+    this.prix = price;
   }
 
-  public IntegerProperty getQuantite() {
+  public int getQuantite() {
     return quantite;
   }
 
-  public void setQuantite(IntegerProperty quantite) {
-    this.quantite = quantite;
+  public void setQuantite(int quantity) {
+    this.quantite = quantity;
+  }
+
+  @Override
+  public String toString() {
+    return "Product{id="
+        + id
+        + ", name="
+        + nom
+        + ", category="
+        + categorie
+        + ", price="
+        + prix
+        + ", quantity="
+        + quantite
+        + "}";
   }
 }
