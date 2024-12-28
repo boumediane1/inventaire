@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ProduitDao {
@@ -61,7 +60,7 @@ public class ProduitDao {
 
     try (PreparedStatement ps = connection.prepareStatement(sql)) {
       return doRechercherProduits(ps);
-    } catch(SQLException e) {
+    } catch (SQLException e) {
       throw new RemoteException();
     }
   }
@@ -107,6 +106,7 @@ public class ProduitDao {
       while (rs.next()) {
         Produit product =
             new Produit(
+                rs.getInt("id"),
                 rs.getString("name"),
                 rs.getString("category"),
                 rs.getDouble("price"),

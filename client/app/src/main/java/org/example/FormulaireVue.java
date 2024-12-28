@@ -1,5 +1,6 @@
 package org.example;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -20,6 +21,8 @@ public class FormulaireVue extends VBox {
     btnAjouterProduit = new Button("Ajouter produit");
 
     this.setPrefWidth(300);
+    this.setPadding(new Insets(24));
+    this.setSpacing(8);
 
     this.getChildren()
         .addAll(
