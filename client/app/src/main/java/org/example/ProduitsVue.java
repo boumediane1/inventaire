@@ -116,9 +116,13 @@ public class ProduitsVue extends TableView<ProduitVM> {
 
             deleteButton.setOnAction(
                 event -> {
-                  ProduitVM produit = getTableView().getItems().get(getIndex());
-                  getTableView().getItems().remove(produit);
-                  System.out.println("Deleted: " + produit.getNom().get());
+                  try {
+                    ProduitVM row = getTableView().getItems().get(getIndex());
+                    inventaire.deleteProduct(row.getId().get());
+                    getTableView().getItems().remove(row);
+                  } catch (RemoteException e) {
+                    e.printStackTrace();
+                  }
                 });
           }
 
