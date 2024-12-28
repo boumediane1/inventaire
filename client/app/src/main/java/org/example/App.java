@@ -8,8 +8,14 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -22,7 +28,20 @@ public class App extends Application {
     ObservableList<ProduitView> produits =
         FXCollections.observableArrayList(new ProduitView("produit 1", "categorie 1", 0, 0));
 
-    Scene scene = new Scene(initTableView(produits), 800, 600);
+    TextField tfNom = new TextField();
+    TextField tfCategorie = new TextField();
+    TextField tfPrix = new TextField();
+    TextField tfQuantite = new TextField();
+    Button btnAjouterProduit = new Button("Ajouter produit");
+    VBox vBox = new VBox(tfNom, tfCategorie, tfPrix, tfQuantite, btnAjouterProduit);
+    TableView<ProduitView> tableView = initTableView(produits);
+
+    GridPane gridPane = initGridPane();
+    gridPane.add(tableView, 0, 0);
+    gridPane.add(vBox, 1, 0);
+    gridPane.setGridLinesVisible(false);
+
+    Scene scene = new Scene(gridPane, 800, 600);
     produits.add(new ProduitView("produit 2", "categorie 2", 0, 0));
     primaryStage.setScene(scene);
     primaryStage.show();
@@ -33,22 +52,35 @@ public class App extends Application {
 
     TableColumn<ProduitView, String> nomCol = new TableColumn<>("Nom");
     nomCol.setCellValueFactory(p -> p.getValue().getNom());
-    nomCol.prefWidthProperty().bind(tableView.widthProperty().multiply(0.25));
 
     TableColumn<ProduitView, String> categorieCol = new TableColumn<>("Catégorie");
     categorieCol.setCellValueFactory(p -> p.getValue().getCategorie());
-    categorieCol.prefWidthProperty().bind(tableView.widthProperty().multiply(0.25));
 
     TableColumn<ProduitView, Number> prixCol = new TableColumn<>("Prix");
     prixCol.setCellValueFactory(p -> p.getValue().getPrix());
-    prixCol.prefWidthProperty().bind(tableView.widthProperty().multiply(0.25));
 
     TableColumn<ProduitView, Number> quantiteCol = new TableColumn<>("Quantité");
     quantiteCol.setCellValueFactory(p -> p.getValue().getQuantite());
-    quantiteCol.prefWidthProperty().bind(tableView.widthProperty().multiply(0.25));
 
     tableView.getColumns().addAll(List.of(nomCol, categorieCol, prixCol, quantiteCol));
+    tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
 
     return tableView;
+  }
+
+  public GridPane initGridPane() {
+    GridPane pane = new GridPane(16, 0);
+    ColumnConstraints tableColumnConstraints = new ColumnConstraints();
+    ColumnConstraints formColumnConstraints = new ColumnConstraints();
+    RowConstraints rowConstraints = new RowConstraints();
+
+    tableColumnConstraints.setPercentWidth(70);
+    formColumnConstraints.setPercentWidth(30);
+    rowConstraints.setPercentHeight(100);
+
+    pane.getColumnConstraints().addAll(tableColumnConstraints, formColumnConstraints);
+    pane.getRowConstraints().add(rowConstraints);
+
+    return pane;
   }
 }
