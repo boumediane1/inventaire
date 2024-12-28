@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
@@ -25,7 +26,8 @@ public class App extends Application {
 
     HBox rechercherVue = new RechercherVue();
 
-    TableView<ProduitVM> produitsVue = new ProduitsVue(inventaire);
+    ObservableList<ProduitVM> produits = (Util.from(this.inventaire.listerProduits()));
+    TableView<ProduitVM> produitsVue = new ProduitsVue(inventaire, produits);
 
     VBox formulaireVue = new FormulaireVue();
 

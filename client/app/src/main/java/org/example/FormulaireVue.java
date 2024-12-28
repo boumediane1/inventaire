@@ -35,6 +35,8 @@ public class FormulaireVue extends VBox {
             new Label("Quantité"),
             tfQuantite,
             btnAjouterProduit);
+
+    this.btnAjouterProduit.setOnAction(event -> {});
   }
 
   public TextField getTfNom() {

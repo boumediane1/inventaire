@@ -2,6 +2,7 @@ package org.example;
 
 import java.rmi.RemoteException;
 import java.util.List;
+import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
@@ -12,9 +13,9 @@ import javafx.util.converter.NumberStringConverter;
 public class ProduitsVue extends TableView<ProduitVM> {
   private Inventaire inventaire;
 
-  public ProduitsVue(Inventaire inventaire) {
+  public ProduitsVue(Inventaire inventaire, ObservableList<ProduitVM> produits) {
     this.inventaire = inventaire;
-    this.setItems(Util.from(this.inventaire.listerProduits()));
+    this.setItems(produits);
 
     TableColumn<ProduitVM, String> nomCol = new TableColumn<>("Nom");
     nomCol.setCellValueFactory(p -> p.getValue().getNom());
