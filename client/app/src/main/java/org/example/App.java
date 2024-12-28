@@ -29,7 +29,7 @@ public class App extends Application {
     ProduitForm vBox = new ProduitForm();
 
     GridPane pane = new ProductPane();
-    pane.add(tableView, 1, 0);
+    pane.add(tableView, 0, 0);
     pane.add(vBox, 1, 0);
 
     Scene scene = new Scene(pane, 800, 600);
