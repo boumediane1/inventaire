@@ -1,6 +1,9 @@
 package org.example;
 
-import java.util.Collections;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.List;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -18,11 +21,13 @@ public class App extends Application {
   }
 
   @Override
-  public void start(Stage primaryStage) {
+  public void start(Stage primaryStage) throws RemoteException, NotBoundException {
+    Inventaire inventaire = inventaire();
+    ObservableList<ProduitVM> produits = from(inventaire.listerProduits());
+
     HBox rechercherVue = new RechercherVue();
 
-    TableView<ProduitVM> produitsVue =
-        new ProduitsVue(FXCollections.observableList(Collections.emptyList()));
+    TableView<ProduitVM> produitsVue = new ProduitsVue(FXCollections.observableList(produits));
 
     VBox formulaireVue = new FormulaireVue();
 
@@ -38,6 +43,12 @@ public class App extends Application {
     primaryStage.setScene(scene);
     primaryStage.setTitle("JavaFX Layout Example");
     primaryStage.show();
+  }
+
+  public Inventaire inventaire() throws RemoteException, NotBoundException {
+    Registry registry = LocateRegistry.getRegistry();
+    Inventaire inventaire = (Inventaire) registry.lookup("inventaire");
+    return inventaire;
   }
 
   public ObservableList<ProduitVM> from(List<Produit> produtis) {
