@@ -13,12 +13,12 @@ L'application sera devisé en deux partie :
 ### Diagramme de class
 
 Ce diagramme illustre un système de gestion d'inventaire basé sur Java RMI. Le **`Server`** expose les méthodes de l’interface **`Inventaire`** via RMI, et le **`Client`** interagit avec ces méthodes à distance. Les données des produits (**`Produit`**) sont gérées par **`ProduitDao`**, qui utilise une connexion MySQL via **`CustomMySQLConnection`**.
-![[class-diagram.png]]
+![Diagramme de classe](class-diagram.png)
 
 ### Sequence diagram
 
 Ce diagramme de séquence illustre le cas d’utilisation de la **liste des produits** dans le système. Le **Client** appelle la méthode distante `listerProduits()` via l’interface RMI **`Inventaire`**, qui délègue la demande à **`InventaireImpl`**. Ce dernier interroge la base de données via **`ProduitDao`** pour récupérer la liste des produits, qui est ensuite renvoyée au **Client**.
-![[sequence-diagram.png]]
+![Diagramme de séquence](sequence-diagram.png)
 
 ## Description de l’architecture
 
