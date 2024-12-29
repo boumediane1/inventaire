@@ -29,7 +29,7 @@ public class ProduitsVue extends TableView<ProduitVM> {
             Produit produit = Util.from(row);
             produit.setNom(newValue);
 
-            inventaire.updateProduct(produit);
+            inventaire.modifierProduit(produit);
             row.getNom().set(newValue);
           } catch (RemoteException e) {
             e.printStackTrace();
@@ -48,7 +48,7 @@ public class ProduitsVue extends TableView<ProduitVM> {
             Produit produit = Util.from(row);
             produit.setCategorie(newValue);
 
-            inventaire.updateProduct(produit);
+            inventaire.modifierProduit(produit);
             row.getCategorie().set(newValue);
           } catch (RemoteException e) {
             e.printStackTrace();
@@ -67,7 +67,7 @@ public class ProduitsVue extends TableView<ProduitVM> {
             Produit produit = Util.from(row);
             produit.setPrix(newValue);
 
-            inventaire.updateProduct(produit);
+            inventaire.modifierProduit(produit);
             row.getPrix().set(newValue);
           } catch (RemoteException e) {
             e.printStackTrace();
@@ -86,7 +86,7 @@ public class ProduitsVue extends TableView<ProduitVM> {
             Produit produit = Util.from(row);
             produit.setQuantite(newValue);
 
-            inventaire.updateProduct(produit);
+            inventaire.modifierProduit(produit);
             row.getQuantite().set(newValue);
           } catch (RemoteException e) {
             e.printStackTrace();
@@ -119,7 +119,7 @@ public class ProduitsVue extends TableView<ProduitVM> {
                 event -> {
                   try {
                     ProduitVM row = getTableView().getItems().get(getIndex());
-                    inventaire.deleteProduct(row.getId().get());
+                    inventaire.supprimerProduit(row.getId().get());
                     getTableView().getItems().remove(row);
                   } catch (RemoteException e) {
                     e.printStackTrace();

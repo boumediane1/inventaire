@@ -12,17 +12,17 @@ public class InventaireImpl extends UnicastRemoteObject implements Inventaire {
   }
 
   @Override
-  public void addProduct(Produit product) throws RemoteException {
+  public void ajouterProduit(Produit product) throws RemoteException {
     productDao.ajouterProduit(product);
   }
 
   @Override
-  public void updateProduct(Produit product) throws RemoteException {
+  public void modiferProduit(Produit product) throws RemoteException {
     productDao.modifierProduit(product);
   }
 
   @Override
-  public void deleteProduct(int id) throws RemoteException {
+  public void supprimerProduit(int id) throws RemoteException {
     productDao.supprimerProduit(id);
   }
 
@@ -32,17 +32,17 @@ public class InventaireImpl extends UnicastRemoteObject implements Inventaire {
   }
 
   @Override
-  public List<Produit> findProductsByName(String name) throws RemoteException {
+  public List<Produit> rechercherProduitsParNom(String name) throws RemoteException {
     return productDao.rechercherProduitsParNom(name);
   }
 
   @Override
-  public List<Produit> findProductsByCategory(String category) throws RemoteException {
+  public List<Produit> rechercherProduitsParCategorie(String category) throws RemoteException {
     return productDao.rechercherProduitsParCategorie(category);
   }
 
   @Override
-  public List<Produit> findProductsByQuantityRange(int min, int max) throws RemoteException {
+  public List<Produit> rechercherProduitsParQuantite(int min, int max) throws RemoteException {
     return productDao.rechercherProduitParQuantite(min, max);
   }
 }

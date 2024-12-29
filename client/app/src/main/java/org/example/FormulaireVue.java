@@ -48,7 +48,7 @@ public class FormulaireVue extends VBox {
                     Double.parseDouble(tfPrix.getText()),
                     Integer.parseInt(tfQuantite.getText()));
 
-            inventaire.addProduct(produit);
+            inventaire.ajouterProduit(produit);
             produits.add(Util.from(produit));
           } catch (RemoteException e) {
             e.printStackTrace();
