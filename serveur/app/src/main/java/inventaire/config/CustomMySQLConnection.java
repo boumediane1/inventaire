@@ -7,6 +7,7 @@ import java.sql.SQLException;
 public class CustomMySQLConnection {
   private static Connection connection;
 
+  // Constructeur privé pour empêcher l'instanciation directe de cette classe
   private CustomMySQLConnection() {}
 
   public static Connection getConnection() {
@@ -16,9 +17,9 @@ public class CustomMySQLConnection {
       String password = "";
 
       try {
-        connection = DriverManager.getConnection(url, username, password);
+        connection = DriverManager.getConnection(url, username, password); // Crée une connexion unique à la base
       } catch (SQLException e) {
-        e.printStackTrace();
+        e.printStackTrace(); // Affiche les erreurs de connexion
       }
     }
 

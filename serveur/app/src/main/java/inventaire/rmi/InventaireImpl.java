@@ -6,6 +6,12 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
+/**
+ * Cette classe implémente l'interface Inventaire et fournit les
+ * fonctionnalités liées à la gestion des produits dans un inventaire
+ * via RMI. Elle sert d'intermédiaire entre le client RMI et le DAO (Data Access Object).
+ */
+
 public class InventaireImpl extends UnicastRemoteObject implements Inventaire {
   private ProduitDao productDao;
 

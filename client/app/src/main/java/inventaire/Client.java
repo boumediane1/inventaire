@@ -31,12 +31,10 @@ public class Client extends Application {
     Registry registry = LocateRegistry.getRegistry();
     this.inventaire = (Inventaire) registry.lookup("inventaire");
 
-    ObservableList<ProduitVM> produits = (Util.from(this.inventaire.listerProduits()));
+    ObservableList<ProduitVM> produits = Util.from(this.inventaire.listerProduits());
 
     HBox rechercherVue = new RechercherVue(inventaire, produits);
-
     TableView<ProduitVM> produitsVue = new ProduitsVue(inventaire, produits);
-
     VBox formulaireVue = new FormulaireVue(inventaire, produits);
 
     HBox hBox = new HBox();

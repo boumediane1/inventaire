@@ -6,6 +6,10 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+/**
+ * Classe ProduitVM pour représenter un produit.
+ * Permet de gérer les propriétés du produit et de les lier à l'interface utilisateur JavaFX.
+ */
 
 public class ProduitVM {
   private IntegerProperty id;
