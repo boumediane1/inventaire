@@ -13,7 +13,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class App extends Application {
+public class Client extends Application {
   private Inventaire inventaire;
 
   public static void main(String[] args) {
@@ -22,7 +22,8 @@ public class App extends Application {
 
   @Override
   public void start(Stage primaryStage) throws RemoteException, NotBoundException {
-    this.inventaire = inventaire();
+    Registry registry = LocateRegistry.getRegistry();
+    this.inventaire = (Inventaire) registry.lookup("inventaire");
 
     HBox rechercherVue = new RechercherVue();
 
@@ -43,11 +44,5 @@ public class App extends Application {
     primaryStage.setScene(scene);
     primaryStage.setTitle("JavaFX Layout Example");
     primaryStage.show();
-  }
-
-  public Inventaire inventaire() throws RemoteException, NotBoundException {
-    Registry registry = LocateRegistry.getRegistry();
-    Inventaire inventaire = (Inventaire) registry.lookup("inventaire");
-    return inventaire;
   }
 }
