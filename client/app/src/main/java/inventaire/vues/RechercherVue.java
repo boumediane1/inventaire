@@ -2,7 +2,6 @@ package inventaire.vues;
 
 import inventaire.models.ProduitVM;
 import inventaire.rmi.Inventaire;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -10,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -55,6 +55,8 @@ public class RechercherVue extends HBox {
     btnRechercher.setOnAction(event -> rechercherProduits());
   }
 
+
+
   private void rechercherProduits() {
     String nom = tfNom.getText().trim();
     String categorie = tfCategorie.getText().trim();
@@ -65,38 +67,43 @@ public class RechercherVue extends HBox {
       int minQuantite = minQuantiteText.isEmpty() ? Integer.MIN_VALUE : Integer.parseInt(minQuantiteText);
       int maxQuantite = maxQuantiteText.isEmpty() ? Integer.MAX_VALUE : Integer.parseInt(maxQuantiteText);
 
-      // Utiliser des ensembles pour combiner les résultats de manière correcte
-      Set<ProduitVM> resultSet = new HashSet<>();
+      // Liste pour stocker les ensembles de résultats individuels
+      List<Set<ProduitVM>> resultSets = new ArrayList<>();
 
+      // Ajouter les résultats pour chaque critère rempli
       if (!nom.isEmpty()) {
-        resultSet.addAll(inventaire.rechercherProduitsParNom(nom).stream()
-            .map(produit -> new ProduitVM(produit.getId(), produit.getNom(), produit.getCategorie(), produit.getPrix(), produit.getQuantite()))
-            .collect(Collectors.toSet()));
+        resultSets.add(inventaire.rechercherProduitsParNom(nom).stream()
+          .map(produit -> new ProduitVM(produit.getId(), produit.getNom(), produit.getCategorie(), produit.getPrix(), produit.getQuantite()))
+          .collect(Collectors.toSet()));
       }
 
       if (!categorie.isEmpty()) {
-        Set<ProduitVM> categorySet = inventaire.rechercherProduitsParCategorie(categorie).stream()
-            .map(produit -> new ProduitVM(produit.getId(), produit.getNom(), produit.getCategorie(), produit.getPrix(), produit.getQuantite()))
-            .collect(Collectors.toSet());
-
-        if (!resultSet.isEmpty()) {
-          resultSet.retainAll(categorySet);
-        } else {
-          resultSet.addAll(categorySet);
-        }
-      }
-
-      Set<ProduitVM> quantitySet = inventaire.rechercherProduitsParQuantite(minQuantite, maxQuantite).stream()
+        resultSets.add(inventaire.rechercherProduitsParCategorie(categorie).stream()
           .map(produit -> new ProduitVM(produit.getId(), produit.getNom(), produit.getCategorie(), produit.getPrix(), produit.getQuantite()))
-          .collect(Collectors.toSet());
-
-      if (!resultSet.isEmpty()) {
-        resultSet.retainAll(quantitySet);
-      } else {
-        resultSet.addAll(quantitySet);
+          .collect(Collectors.toSet()));
       }
 
-      produits.setAll(resultSet);
+      if (!minQuantiteText.isEmpty() || !maxQuantiteText.isEmpty()) {
+        resultSets.add(inventaire.rechercherProduitsParQuantite(minQuantite, maxQuantite).stream()
+          .map(produit -> new ProduitVM(produit.getId(), produit.getNom(), produit.getCategorie(), produit.getPrix(), produit.getQuantite()))
+          .collect(Collectors.toSet()));
+      }
+
+      // Combiner les résultats : commencer avec tous les résultats du premier ensemble et conserver les correspondances des autres
+      Set<ProduitVM> combinedResults;
+      if (!resultSets.isEmpty()) {
+        combinedResults = new HashSet<>(resultSets.get(0)); // Commencer avec le premier ensemble de résultats
+        for (int i = 1; i < resultSets.size(); i++) {
+          combinedResults.retainAll(resultSets.get(i)); // Conserver uniquement les correspondances
+        }
+      } else {
+        // Aucun critère fourni ; récupérer tous les produits
+        combinedResults = inventaire.listerProduits().stream()
+        .map(produit -> new ProduitVM(produit.getId(), produit.getNom(), produit.getCategorie(), produit.getPrix(), produit.getQuantite()))
+        .collect(Collectors.toSet());
+      }
+
+      produits.setAll(combinedResults);
 
     } catch (RemoteException | NumberFormatException e) {
       e.printStackTrace();
