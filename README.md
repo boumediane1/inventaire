@@ -99,33 +99,37 @@ Vous devez avoir un serveur MySQL, et un client comme phpMyAdmin pour connecter 
 Cloner le projet depuis GitHub :
 
 ```bash
-git clone git@github.com:boumediane1/inventaire.git
+git clone https://github.com/boumediane1/inventaire.git
 ```
 
 #### Étapes pour exécuter le serveur
 
-Se déplacer dans le dossier `serveur` et exécuter la commande :
+Se déplacer dans le dossier `inventaire/serveur` et exécuter la commande :
 
 ```bash
-./gradlew build
+gradlew clean build
 ```
+
+Se déplacer dans le dossier `inventaire/serveur/app/build/classes/java/main` et exécuter la commande :
 
 Lancer le registre RMI :
 
 ```bash
-rmiregisry
+rmiregistry
 ```
+
+Se déplacer dans le dossier `inventaire/serveur` et exécuter la commande :
 
 Démarrer le serveur :
 
 ```bash
-./gradlew run
+gradlew run
 ```
 
 #### Étapes pour exécuter le client
 
-Se deplacer dans le dossier `client` et exécuter la commande :
+Se deplacer dans le dossier `inventaire/client` et exécuter la commande :
 
 ```bash
-./gradlew run
+gradlew clean run
 ```
