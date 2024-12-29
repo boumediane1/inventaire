@@ -1,4 +1,6 @@
-package org.example;
+package inventaire.rmi;
+
+import inventaire.dao.ProduitDao;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -17,7 +19,7 @@ public class InventaireImpl extends UnicastRemoteObject implements Inventaire {
   }
 
   @Override
-  public void modiferProduit(Produit product) throws RemoteException {
+  public void modifierProduit(Produit product) throws RemoteException {
     productDao.modifierProduit(product);
   }
 

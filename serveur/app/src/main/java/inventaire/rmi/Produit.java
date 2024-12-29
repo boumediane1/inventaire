@@ -1,4 +1,4 @@
-package org.example;
+package inventaire.rmi;
 
 import java.io.Serializable;
 

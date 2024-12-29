@@ -1,4 +1,7 @@
-package org.example;
+package inventaire.dao;
+
+import inventaire.config.CustomMySQLConnection;
+import inventaire.rmi.Produit;
 
 import java.rmi.RemoteException;
 import java.sql.Connection;

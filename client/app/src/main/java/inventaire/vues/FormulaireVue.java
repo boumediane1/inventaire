@@ -1,6 +1,11 @@
-package org.example;
+package inventaire.vues;
 
 import java.rmi.RemoteException;
+
+import inventaire.rmi.Inventaire;
+import inventaire.rmi.Produit;
+import inventaire.models.ProduitVM;
+import inventaire.util.Util;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;

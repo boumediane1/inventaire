@@ -1,5 +1,11 @@
-package org.example;
+package inventaire;
 
+import inventaire.models.ProduitVM;
+import inventaire.rmi.Inventaire;
+import inventaire.util.Util;
+import inventaire.vues.FormulaireVue;
+import inventaire.vues.ProduitsVue;
+import inventaire.vues.RechercherVue;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -25,9 +31,10 @@ public class Client extends Application {
     Registry registry = LocateRegistry.getRegistry();
     this.inventaire = (Inventaire) registry.lookup("inventaire");
 
-    HBox rechercherVue = new RechercherVue();
-
     ObservableList<ProduitVM> produits = (Util.from(this.inventaire.listerProduits()));
+
+    HBox rechercherVue = new RechercherVue(inventaire, produits);
+
     TableView<ProduitVM> produitsVue = new ProduitsVue(inventaire, produits);
 
     VBox formulaireVue = new FormulaireVue(inventaire, produits);
@@ -39,10 +46,9 @@ public class Client extends Application {
     vBox.getChildren().addAll(rechercherVue, hBox);
     VBox.setVgrow(hBox, Priority.ALWAYS);
 
-    // Create the scene and show the stage
     Scene scene = new Scene(vBox, 1000, 600);
     primaryStage.setScene(scene);
-    primaryStage.setTitle("JavaFX Layout Example");
+    primaryStage.setTitle("Inventaire");
     primaryStage.show();
   }
 }

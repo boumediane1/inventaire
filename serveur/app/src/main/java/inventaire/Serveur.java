@@ -1,4 +1,7 @@
-package org.example;
+package inventaire;
+
+import inventaire.rmi.Inventaire;
+import inventaire.rmi.InventaireImpl;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;

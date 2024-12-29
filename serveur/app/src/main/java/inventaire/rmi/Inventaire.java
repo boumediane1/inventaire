@@ -1,4 +1,4 @@
-package org.example;
+package inventaire.rmi;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -7,7 +7,7 @@ import java.util.List;
 public interface Inventaire extends Remote {
   void ajouterProduit(Produit product) throws RemoteException;
 
-  void modiferProduit(Produit product) throws RemoteException;
+  void modifierProduit(Produit product) throws RemoteException;
 
   void supprimerProduit(int id) throws RemoteException;
 

@@ -1,7 +1,12 @@
-package org.example;
+package inventaire.vues;
 
 import java.rmi.RemoteException;
 import java.util.List;
+
+import inventaire.rmi.Inventaire;
+import inventaire.rmi.Produit;
+import inventaire.models.ProduitVM;
+import inventaire.util.Util;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;

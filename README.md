@@ -87,10 +87,10 @@ Vous devez avoir un serveur MySQL, et un client comme phpMyAdmin pour connecter 
 
 #### Paramètres de connexion
 
-Nom de la base de données : `inventaire`
-Port : `3306`
-Utilisateur : `root`
-Mot de passe :
+- Nom de la base de données : `inventaire`
+- Port : `3306`
+- Utilisateur : `root`
+- Mot de passe :
 
 (Le mot de passe est vide)
 

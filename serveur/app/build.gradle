@@ -37,7 +37,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = 'org.example.Serveur'
+    mainClass = 'inventaire.Serveur'
 }
 
 tasks.named('test') {

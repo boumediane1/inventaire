@@ -1,6 +1,9 @@
-package org.example;
+package inventaire.util;
 
 import java.util.List;
+
+import inventaire.models.ProduitVM;
+import inventaire.rmi.Produit;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

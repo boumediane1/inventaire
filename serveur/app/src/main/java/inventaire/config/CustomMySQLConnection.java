@@ -1,4 +1,4 @@
-package org.example;
+package inventaire.config;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,6 +6,8 @@ import java.sql.SQLException;
 
 public class CustomMySQLConnection {
   private static Connection connection;
+
+  private CustomMySQLConnection() {}
 
   public static Connection getConnection() {
     if (connection == null) {

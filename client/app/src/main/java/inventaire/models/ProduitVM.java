@@ -1,4 +1,4 @@
-package org.example;
+package inventaire.models;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
